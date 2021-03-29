@@ -16,14 +16,14 @@ std::tuple<int, long long> fractran_primegen(int prime_index) {
         ++a;
         for (int b {a - 1}; b >= 1; --b) {
             if (a % b == 0) {
-                // performing a % b and updating state to a = a + 1
+                // iteration count: performing a % b and updating state to a = a + 1
                 iterations += 7 * a + b + 2 * (a / b) + 3;
                 if (b == 1) {
                     ++i;
                 }
                 break;
             } else {
-                // performing a % b and updating state to b = b - 1
+                // iteration count: performing a % b and updating state to b = b - 1
                 iterations += 6 * a + 2 * (a / b) + 2;
             }
         }
