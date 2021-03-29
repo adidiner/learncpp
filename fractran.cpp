@@ -9,12 +9,12 @@
  * (the index of 2 is 1, 3 is 2..)
  * @return the prime, the number of iterations
  */
-std::tuple<unsigned int, unsigned long long> fractran_primegen(int prime_index) {
-    unsigned long long iterations {5};
-    unsigned int a {1};
+std::tuple<int, long long> fractran_primegen(int prime_index) {
+    long long iterations {5};
+    int a {1};
     for (int i {}; i < prime_index; ) {
         ++a;
-        for (unsigned int b {a - 1}; b >= 1; --b) {
+        for (int b {a - 1}; b >= 1; --b) {
             if (a % b == 0) {
                 // performing a % b and updating state to a = a + 1
                 iterations += 7 * a + b + 2 * (a / b) + 3;
