@@ -8,10 +8,17 @@ int main() {
 
     // sort
     for (std::size_t i {0}; i < length; ++i) {
+        bool sorted {true};
         for (std::size_t j {0}; j < length - i - 1; ++j) {
             if (array[j] > array[j + 1]) {
                 std::swap(array[j], array[j + 1]);
+                sorted = false;
             }
+        }
+
+        // If no swap was done, array is sorted
+        if (sorted) {
+            break;
         }
     }
 
