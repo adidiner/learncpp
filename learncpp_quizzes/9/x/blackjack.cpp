@@ -43,6 +43,9 @@ constexpr int blackjack{21};
 using deck_t = std::array<Card, deck_size>;
 using hand_t = std::vector<Card>;
 
+/**
+ * print card in "RS" (rank suit) format (e.g, jack of spades - JS)
+*/
 void print_card(const Card& card) {
     char rank{};
     char suit{};
@@ -71,6 +74,9 @@ void print_card(const Card& card) {
     std::cout << rank << suit;
 }
 
+/**
+ * get blackjack value of card
+ */ 
 int get_card_value(const Card& card) {
     if (card.rank == Rank::ace) {
         return 11;
@@ -81,6 +87,9 @@ int get_card_value(const Card& card) {
     }
 }
 
+/**
+ * create standard deck 
+ */
 deck_t create_deck() {
     deck_t deck{};
     int suits{static_cast<int>(Suit::max_suits)};
@@ -110,6 +119,9 @@ void shuffle_deck(deck_t& deck) {
     std::shuffle(deck.begin(), deck.end(), mt);
 }
 
+/**
+ * calaculate total blackjack value of hand
+ */
 int total_hand(const hand_t& hand) {
     int sum{};
      for (const auto& card : hand) {
@@ -126,14 +138,23 @@ void print_hand(const hand_t& hand) {
     std::cout << "\nTotal: " << total_hand(hand) << '\n';
 }
 
+/**
+ * draw card from deck - get the top card and advance top
+ */
 const Card& draw(const deck_t& deck, size_t& top) {
     return deck[top++];
 }
  
+/**
+ * clear std::cin buffer
+ */
 void ignore_line() {
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+/**
+ * prompt player for action (hit or stand), return 'h' or 's'
+ */
 char get_player_action() {
     char action{};
     do {
@@ -147,6 +168,14 @@ char get_player_action() {
     } while (true);
 }
 
+/**
+ * perform player turn
+ * 
+ * @param deck game deck
+ * @param hand initial player hand
+ * @param top current deck top
+ * @return true if player didnt bust
+ */
 bool player_turn(const deck_t& deck, hand_t& hand, size_t& top) {
     while (true) {
         char action{get_player_action()};  
@@ -161,6 +190,14 @@ bool player_turn(const deck_t& deck, hand_t& hand, size_t& top) {
     }
 }
 
+/**
+ * perform dealer turn
+ * 
+ * @param deck game deck
+ * @param hand initial dealer hand
+ * @param top current deck top
+ * @return true if dealer didnt bust
+ */
 bool dealer_turn(const deck_t& deck, hand_t& hand, size_t& top) {
     constexpr int done{17};
     while (true) {
@@ -175,6 +212,12 @@ bool dealer_turn(const deck_t& deck, hand_t& hand, size_t& top) {
     }
 }
 
+/**
+ * simplfied game of blackjack
+ * 
+ * @param deck mixed standard card deck
+ * @return true if player won, false otherwise
+ */
 bool play_blackjack(const deck_t& deck) {
     size_t top{}; // current top of the deck
     hand_t dealer{draw(deck, top)};
@@ -186,12 +229,12 @@ bool play_blackjack(const deck_t& deck) {
     print_hand(dealer);
 
     std::cout << "\nPlayer's turn:\n";
-    if (!player_turn(deck, player, top)) { // player busted
+    if (!player_turn(deck, player, top)) {
         std::cout << "Bust!\n";
         return false;
     }
     std::cout << "\nDealer's turn:\n\n";
-    if (!dealer_turn(deck, dealer, top)) { // dealer busted
+    if (!dealer_turn(deck, dealer, top)) {
         std::cout << "Dealer bust!\n";
         return true;
     }
