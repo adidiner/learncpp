@@ -24,5 +24,6 @@ int count_total_items(const inventory_t& item_count) {
 int main() {
     inventory_t item_count{2, 5, 10};
     std::cout << "Total items: " << count_total_items(item_count) << '\n';
+    std::cout << "Torches: " << item_count[Items::torch] << '\n';
     return 0;
 }
