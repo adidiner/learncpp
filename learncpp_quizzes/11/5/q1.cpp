@@ -7,18 +7,12 @@ private:
     double m_radius{10.0};
 
 public:
-    Ball() = default;
-
-    Ball(const std::string& color) {
+    Ball(const std::string& color = "black", double radius = 10.0) {
         m_color = color;
-    }
-
-    Ball(const double radius) {
         m_radius = radius;
     }
 
-    Ball(const std::string& color, const double radius) {
-        m_color = color;
+    Ball(double radius) {
         m_radius = radius;
     }
 
