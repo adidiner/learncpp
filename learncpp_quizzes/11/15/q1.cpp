@@ -1,6 +1,4 @@
 #include <iostream>
- 
-class Point3d;
 
 class Vector3d {
 private:
